@@ -5,7 +5,16 @@ const cloudinary = require("../utils/cloudinary");
 const { Product } = require("../models/product");
 
 router.post("/", async (req, res) => {
-  const { title, image } = req.body;
+  const { title,  place,
+              type,
+              price,
+              quantity,
+              timing,
+              address,
+              description,
+              reviews,
+              feedback,
+              rating, image, } = req.body;
   try {
     if (image) {
       const uploadRes = await cloudinary.uploader.upload(image, {
@@ -14,10 +23,21 @@ router.post("/", async (req, res) => {
       if (uploadRes) {
         const product = new Product({
           title,
+            place,
+              type,
+              price,
+              quantity,
+              timing,
+              address,
+              description,
+              reviews,
+              feedback,
+              rating,
           image: uploadRes,
         });
         const savedProduct = await product.save();
         res.status(200).send(savedProduct);
+        res.json(req.body);
       }
     }
   } catch (error) {
