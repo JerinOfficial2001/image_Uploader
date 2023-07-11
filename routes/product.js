@@ -9,7 +9,7 @@ router.post("/", async (req, res) => {
   try {
     if (image) {
       const uploadRes = await cloudinary.uploader.upload(image, {
-        upload_preset: "ecommerce",
+        upload_preset: "hotelImages",
       });
       if (uploadRes) {
         const product = new Product({
