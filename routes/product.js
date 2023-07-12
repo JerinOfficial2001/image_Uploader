@@ -37,7 +37,6 @@ router.post("/", async (req, res) => {
         });
         const savedProduct = await product.save();
         res.status(200).send(savedProduct);
-        res.json(req.body);
       }
     }
   } catch (error) {
