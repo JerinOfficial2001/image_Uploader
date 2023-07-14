@@ -21,3 +21,14 @@ const productSchema = new mongoose.Schema(
 );
 const Product = mongoose.model("Product", productSchema);
 exports.Product = Product;
+
+const userSchema = new mongoose.Schema(
+  {
+    title: { type: String, required: true },
+  },
+  {
+    timestamps: true,
+  }
+);
+const UserData = mongoose.model("UserData", userSchema);
+exports.UserData = UserData;
