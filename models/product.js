@@ -37,3 +37,17 @@ const userSchema = new mongoose.Schema(
 );
 const UserData = mongoose.model("UserData", userSchema);
 exports.UserData = UserData;
+
+const authSchema = new mongoose.Schema(
+  {
+    Username: { type: String, unique: true },
+    email: { type: String, required: true },
+    password: { type: String, required: true },
+    type: { type: String, required: true },
+  },
+  {
+    timestamps: true,
+  }
+);
+const AuthData = mongoose.model("AuthData", authSchema);
+exports.AuthData = AuthData;

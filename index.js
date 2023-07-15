@@ -1,5 +1,7 @@
 const express = require("express");
 const products = require("./routes/product");
+const auth = require("./routes/auth");
+
 const mongoose = require("mongoose");
 const app = express();
 app.use(express.json());
@@ -14,6 +16,8 @@ app.listen(PORT, () => {
   console.log("Server Started");
 });
 app.use("/api/products", products);
+app.use("/api/products/auth", auth);
+
 const MONGO_DB = process.env.MONGO_URL;
 mongoose.connect(MONGO_DB).then(() => {
   console.log("db connected");
