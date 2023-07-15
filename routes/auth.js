@@ -7,7 +7,7 @@ const { AuthData } = require("../models/product");
 const JWT = process.env.JWT_SECRET;
 
 router.post("/register", async (req, res) => {
-  const { Username, email, password, type } = req.body;
+  const { Username, email, password, userType } = req.body;
   try {
     const oldUser = await AuthData.findOne({
       email,
@@ -20,7 +20,7 @@ router.post("/register", async (req, res) => {
         Username,
         email,
         password,
-        type,
+        userType,
       });
       console.log(req.body);
       res.send(req.body);
