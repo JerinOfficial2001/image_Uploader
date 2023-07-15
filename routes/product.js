@@ -91,10 +91,14 @@ router.delete("/:id", async (req, res) => {
 });
 
 router.post("/userData", async (req, res) => {
-  const { title } = req.body;
+  const { address, city, zipcode, country, mobile } = req.body;
   try {
     const userData = new UserData({
-      title,
+      address,
+      city,
+      zipcode,
+      country,
+      mobile,
     });
     const savedUserData = await userData.save();
     res.status(200).send(savedUserData);
