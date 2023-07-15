@@ -40,8 +40,8 @@ exports.UserData = UserData;
 
 const authSchema = new mongoose.Schema(
   {
-    Username: { type: String, unique: true },
-    email: { type: String, required: true },
+    Username: { type: String, required: true },
+    email: { type: String, unique: true },
     password: { type: String, required: true },
     userType: { type: String, required: true },
   },

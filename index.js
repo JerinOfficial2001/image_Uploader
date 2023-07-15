@@ -16,7 +16,7 @@ app.listen(PORT, () => {
   console.log("Server Started");
 });
 app.use("/api/products", products);
-app.use("/api/products/auth", auth);
+app.use("/api/auth", auth);
 
 const MONGO_DB = process.env.MONGO_URL;
 mongoose.connect(MONGO_DB).then(() => {
