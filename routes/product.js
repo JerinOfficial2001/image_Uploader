@@ -59,9 +59,9 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/", async (req, res) => {
   try {
-    const id = req.params._id;
+    const id = req.body;
     const allDatas = await Product.find({});
     const temp = [...allDatas];
     const index = temp.find((i) => i._id === id);
@@ -74,9 +74,9 @@ router.put("/:id", async (req, res) => {
     res.send(500).send(error);
   }
 });
-router.delete("/:id", async (req, res) => {
+router.delete("/", async (req, res) => {
   try {
-    const id = req.params._id;
+    const id = req.body;
     const allDatas = await Product.find({});
     const temp = [...allDatas];
     const index = temp.find((i) => i._id === id);
@@ -108,9 +108,9 @@ router.post("/userData", async (req, res) => {
   }
 });
 
-router.put("/userData/:id", async (req, res) => {
+router.put("/userData", async (req, res) => {
   try {
-    const id = req.params._id;
+    const id = req.body;
     const allDatas = await UserData.find({});
     const temp = [...allDatas];
     const prevValue = temp.find((i) => i._id === id);
@@ -131,9 +131,9 @@ router.get("/userData", async (req, res) => {
     res.send(500).send(error);
   }
 });
-router.delete("/userData/:id", async (req, res) => {
+router.delete("/userData", async (req, res) => {
   try {
-    const id = req.params._id;
+    const id = req.body;
     const allDatas = await UserData.find({});
     const temp = [...allDatas];
     const prevValue = temp.find((i) => i._id === id);

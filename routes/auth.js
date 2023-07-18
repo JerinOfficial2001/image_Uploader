@@ -85,9 +85,9 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
+router.delete("/", async (req, res) => {
   try {
-    const id = req.params._id;
+    const id = req.body;
     const allDatas = await AuthData.find({});
     const temp = [...allDatas];
     const prevValue = temp.find((i) => i._id === id);
@@ -100,9 +100,9 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/", async (req, res) => {
   try {
-    const id = req.params._id;
+    const id = req.body;
     const allDatas = await AuthData.find({});
     const temp = [...allDatas];
     const prevValue = temp.find((i) => i._id === id);
