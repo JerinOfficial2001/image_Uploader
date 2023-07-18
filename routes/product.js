@@ -59,9 +59,9 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.put("/", async (req, res) => {
+router.put("/:id", async (req, res) => {
   try {
-    const id = req.body;
+    const id = req.params._id;
     const allDatas = await Product.find({});
     const temp = [...allDatas];
     const prevValue = temp.find((i) => i._id === id);
