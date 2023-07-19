@@ -8,6 +8,7 @@ const JWT = process.env.JWT_SECRET;
 
 router.post("/register", async (req, res) => {
   const { Username, email, password, userType } = req.body;
+  const encryptedpassword = await bcrypt.hash(password, 10);
   try {
     const oldUser = await AuthData.findOne({
       email,
@@ -19,7 +20,7 @@ router.post("/register", async (req, res) => {
       await AuthData.create({
         Username,
         email,
-        password,
+        password: encryptedpassword,
         userType,
       });
       console.log(req.body);
@@ -87,31 +88,30 @@ router.get("/", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   try {
-    const id = req.params._id;
+    const id = req.params.id;
     const allDatas = await AuthData.find({});
     const temp = [...allDatas];
     const prevValue = temp.find((i) => i._id === id);
-    const newValue = req.body;
-    const db = await AuthData.deleteOne(prevValue, newValue);
-    res.json(req.body);
+    await AuthData.deleteOne(prevValue);
+    res.send(req.body);
   } catch (error) {
     console.log(error);
-    res.send(500).send(error);
+    res.status(500).send(error);
   }
 });
 
 router.put("/:id", async (req, res) => {
   try {
-    const id = req.params._id;
+    const id = req.params.id;
     const allDatas = await AuthData.find({});
     const temp = [...allDatas];
     const prevValue = temp.find((i) => i._id === id);
     const newValue = req.body;
-    const db = await AuthData.updateOne(prevValue, newValue);
+    await AuthData.updateOne(prevValue, newValue);
     res.json(req.body);
   } catch (error) {
     console.log(error);
-    res.send(500).send(error);
+    res.status(500).send(error);
   }
 });
 module.exports = router;

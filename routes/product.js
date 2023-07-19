@@ -55,36 +55,32 @@ router.get("/", async (req, res) => {
     res.status(200).send(products);
   } catch (error) {
     console.log(error);
-    res.send(500).send(error);
+    res.status(500).send(error);
   }
 });
 
 router.put("/:id", async (req, res) => {
   try {
-    const id = req.params._id;
-    const allDatas = await Product.find({});
-    const temp = [...allDatas];
-    const prevValue = temp.find((i) => i._id === id);
-    const newValue = req.body;
-    const db = await UserData.updateOne(prevValue, newValue);
-    res.json(req.body);
+    const product = await Product.findById(req.params.id);
+    const imgId = product.image.asset_id;
+    await cloudinary.uploader.upload(imgId);
+    const edit = await Product.findByIdAndUpdate(req.params.id);
+    res.send({ status: "updated", data: req.body });
   } catch (error) {
     console.log(error);
-    res.send(500).send(error);
+    res.status(500).send(error);
   }
 });
 router.delete("/:id", async (req, res) => {
   try {
-    const id = req.params._id;
-    const allDatas = await Product.find({});
-    const temp = [...allDatas];
-    const prevValue = temp.find((i) => i._id === id);
-    const newValue = req.body;
-    const db = await UserData.deleteOne(prevValue, newValue);
-    res.json(req.body);
+    const product = await Product.findById(req.params.id);
+    const imgId = product.image.asset_id;
+    await cloudinary.uploader.destroy(imgId);
+    const remove = await Product.findByIdAndDelete(req.params.id);
+    res.send({ status: "deleted" });
   } catch (error) {
     console.log(error);
-    res.send(500).send(error);
+    res.status(500).send(error);
   }
 });
 
@@ -108,16 +104,16 @@ router.post("/userData", async (req, res) => {
 
 router.put("/userData/:id", async (req, res) => {
   try {
-    const id = req.params._id;
+    const id = req.params.id;
     const allDatas = await UserData.find({});
     const temp = [...allDatas];
     const prevValue = temp.find((i) => i._id === id);
     const newValue = req.body;
-    const db = await UserData.updateOne(prevValue, newValue);
+    await UserData.updateOne(prevValue, newValue);
     res.json(req.body);
   } catch (error) {
     console.log(error);
-    res.send(500).send(error);
+    res.status(500).send(error);
   }
 });
 router.get("/userData", async (req, res) => {
@@ -126,21 +122,20 @@ router.get("/userData", async (req, res) => {
     res.status(200).send(products);
   } catch (error) {
     console.log(error);
-    res.send(500).send(error);
+    res.status(500).send(error);
   }
 });
 router.delete("/userData/:id", async (req, res) => {
   try {
-    const id = req.params._id;
+    const id = req.params.id;
     const allDatas = await UserData.find({});
     const temp = [...allDatas];
     const prevValue = temp.find((i) => i._id === id);
-    const newValue = req.body;
-    const db = await UserData.deleteOne(prevValue, newValue);
+    await UserData.deleteOne(prevValue);
     res.json(req.body);
   } catch (error) {
     console.log(error);
-    res.send(500).send(error);
+    res.status(500).send(error);
   }
 });
 
