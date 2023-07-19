@@ -8,7 +8,7 @@ const JWT = process.env.JWT_SECRET;
 
 router.post("/register", async (req, res) => {
   const { Username, email, password, userType } = req.body;
-  const encryptedpassword = await bcrypt.hash(password, 10);
+  const encryptedpassword = await bcrypt.hash(password,10)
   try {
     const oldUser = await AuthData.findOne({
       email,
